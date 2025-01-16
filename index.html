@@ -16,6 +16,7 @@
 	<body class="bg-gray-100 flex items-center justify-center h-screen">
 		<section
 			x-data="calculator()"
+			x-init="initialize()"
 			class="bg-white p-6 rounded shadow-lg w-80"
 		>
 			<div class="mb-4">
@@ -198,6 +199,26 @@
 						}
 
 						return expression;
+					},
+
+					initialize() {
+						document.addEventListener("keydown", (event) => {
+							if (event.key >= "0" && event.key <= 9) {
+								this.append(event.key);
+							} else if (
+								["+", "-", "*", "/", "%", "."].includes(
+									event.key
+								)
+							) {
+								this.append(event.key);
+							} else if (event.key === "Enter") {
+								this.compute();
+							} else if (event.key === "Backspace") {
+								this.backSpace();
+							} else if (event.key === "Delete") {
+								this.clear();
+							}
+						});
 					},
 				};
 			}
